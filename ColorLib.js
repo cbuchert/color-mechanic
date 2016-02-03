@@ -144,6 +144,36 @@ var ColorLib = function() {
 		}
 	};
 
+	this.xyz = {
+		toLab: function(xyz) {
+			var x = xyz.x / 95.047;
+			var y = xyz.y / 100;
+			var z = xyz.z / 108.883;
+
+			if (x > 0.008856) {
+				x = Math.pow(x, (1 / 3));
+			} else {
+				x = (x * 7.787) + (16 / 116);
+			}
+			if (y > 0.008856) {
+				y = Math.pow(y, (1 / 3));
+			} else {
+				y = (y * 7.787) + (16 / 116);
+			}
+			if (z > 0.008856) {
+				z = Math.pow(z, (1 / 3));
+			} else {
+				z = (z * 7.787) + (16 / 116);
+			}
+
+			return {
+				L: (y * 116) - 16,
+				a: (x - y) * 500,
+				b: (y - z) * 200
+			};
+		}
+	},
+
 	this.hsv = {
 		toRGB: function(hsv) {
 			var chroma = hsv.v * hsv.s,
