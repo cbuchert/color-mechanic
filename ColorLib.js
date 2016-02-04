@@ -144,8 +144,8 @@ var ColorLib = function() {
 		}
 	};
 
-	this.xyz = {
-		toLab: function(xyz) {
+	this.xyz = 
+{		toLab: function(xyz) {
 			var x = xyz.x / 95.047;
 			var y = xyz.y / 100;
 			var z = xyz.z / 108.883;
@@ -171,6 +171,122 @@ var ColorLib = function() {
 				a: (x - y) * 500,
 				b: (y - z) * 200
 			};
+		}
+	},
+
+	this.lab = {
+		// Returns the delta-e value between 2 Lab colors (how
+		// similar the two colors are to the human eye).
+		cie2000_deltaE: function(lab1, lab2) {
+			var Lbar1 = (lab1.L + lab2.L) / 2,
+				Csub1 = Math.sqrt(Math.pow(lab1.a, 2) + Math.pow(lab1.b, 2)),
+				Csub2 = Math.sqrt(Math.pow(lab2.a, 2) + Math.pow(lab2.b, 2)),
+				CBar = (Csub1 + Csub2) / 2,
+				G = (1 - Math.sqrt(Math.pow(CBar, 7) / (Math.pow(CBar, 7) + Math.pow(25, 7)))) / 2,
+				a1sub1 = lab1.a * (1 + G),
+				a1sub2 = lab2.a * (1 + G),
+				C1sub1 = Math.sqrt(Math.pow(a1sub1, 2) + Math.pow(lab1.b, 2)),
+				C1sub2 = Math.sqrt(Math.pow(a1sub2, 2) + Math.pow(lab2.b, 2)),
+				CBar1 = (C1sub1 + C1sub2) / 2,
+				h1sub1 = 0.0,
+				h1sub2 = 0.0,
+				Hbar1 = 0.0,
+				T = 0.0,
+				deltah1 = 0.0,
+				deltaL1 = 0.0,
+				deltaC1 = 0.0,
+				deltaH1 = 0.0,
+				SsubL = 0.0,
+				SsubC = 0.0,
+				SsubH = 0.0,
+				deltaTheta = 0.0,
+				RsubC = 0.0,
+				RsubT = 0.0,
+				KsubL = 1,
+				KsubC = 1,
+				KsubH = 1,
+				deltaE = 0;
+
+			if (Math.atan2(lab1.b / a1sub1) >= 0) {
+				h1sub1 = Math.atan2(lab1.b / a1sub1);
+			} else if (Math.atan2(lab1.b / a1sub1) < 0) {
+				h1sub1 = Math.atan2(lab1.b / a1sub1) + 360;
+			}
+
+			if (Math.atan2(lab2.b / a1sub2) >= 0) {
+				h1sub2 = Math.atan2(lab2.b / a1sub2);
+			} else if (Math.atan2(lab2.b / a1sub2) < 0) {
+				h1sub2 = Math.atan2(lab2.b / a1sub2) + 360;
+			}
+
+			if (Math.abs(h1sub1 - h1sub2) > 180) {
+				Hbar1 = (h1sub1 + h1sub2 + 360) / 2;
+			} else if (Math.abs(h1sub1 - h1sub2) <= 180) {
+				Hbar1 = (h1sub1 + h1sub2) / 2;
+			}
+
+			T = 1 - 0.17 * Math.cos(Hbar1 - 30) + 0.24 * Math.cos(2 * Hbar1) + 0.32 * Math.cos(3 * Hbar1 + 6) - 0.20 * Math.cos(4 * Hbar1 - 63);
+
+			if (Math.abs(h1sub2 - h1sub1) <= 180) {
+				deltah1 = h1sub2 - h1sub1;
+			} else if ((Math.abs(h1sub2 - h1sub1) > 180) && (h1sub2 <= h1sub1)) {
+				deltah1 = h1sub2 - h1sub1 + 360;
+			} else if ((Math.abs(h1sub2 - h1sub1) > 180) && (h1sub2 > h1sub1)) {
+				deltah1 = h1sub2 - h1sub1 - 360;
+			}
+
+			deltaL1 = lab2.L - lab1.L;
+
+			deltaC1 = C1sub2 - C1sub1;
+
+			deltaH1 = 2 * Math.sqrt(C1sub1 * C1sub2) * Math.sin(deltah1 / 2);
+
+			SsubL = 1 + 0.015 * Math.pow(Lbar1 - 50, 2) / (Math.sqrt(20 + Math.pow(Lbar1 - 50, 2)));
+
+			SsubC = 1 + 0.045 * CBar1;
+
+			SsubH = 1 + 0.015 * CBar1 * T;
+
+			deltaTheta = 30 * Math.exp(-1 * Math.pow((Hbar1 - 275) / 25, 2));
+
+			RsubC = 2 * Math.sqrt(Math.pow(CBar1, 7) / (Math.pow(CBar1, 7) + Math.pow(25, 7)));
+
+			RsubT = -1 * RsubC * Math.sin(2 * deltaTheta);
+
+			deltaE = Math.sqrt(Math.pow(deltaL1 / (KsubL * SsubL, 2)) + Math.pow(deltaC1 / (KsubC * SsubC), 2) + Math.pow(deltaH1 / (KsubH * SsubH), 2) + RsubT * (deltaC1 / (KsubC * SsubC)) * (deltaH1 / (KsubH * SsubH)));
+
+
+			console.log(Lbar1);
+			console.log(Csub1);
+			console.log(Csub2);
+			console.log(CBar);
+			console.log(G);
+			console.log(a1sub1);
+			console.log(a1sub2);
+			console.log(C1sub1);
+			console.log(C1sub2);
+			console.log(CBar1);
+			console.log(h1sub1);
+			console.log(h1sub2);
+			console.log(Hbar1);
+			console.log(T);
+			console.log(deltah1);
+			console.log(deltaL1);
+			console.log(deltaC1);
+			console.log(deltaH1);
+			console.log(SsubL);
+			console.log(SsubC);
+			console.log(SsubH);
+			console.log(deltaTheta);
+			console.log(RsubC);
+			console.log(RsubT);
+			console.log(KsubL);
+			console.log(KsubC);
+			console.log(KsubH);
+			console.log(deltaE);
+
+
+			return deltaE;
 		}
 	},
 
