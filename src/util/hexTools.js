@@ -1,7 +1,10 @@
 module.exports = {
 	decToHex: (number) => {
-		if(number < 256) {
-			return true;
+		const hexBase = 16;
+		const maxHexValue = parseInt("ff", hexBase);
+
+		if (number < maxHexValue) {
+			return number.toString(hexBase);
 		}
 
 		return "";

@@ -10,4 +10,8 @@ describe("A decimal to hex converter", () => {
 	it ("returns an empty string if given a number over 255.", () => {
 		expect(hexTools.decToHex(256)).to.equal("");
 	});
+
+	it ("returns a hex value when given a number.", () => {
+		expect(hexTools.decToHex(20)).to.equal("14");
+	});
 });
