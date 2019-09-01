@@ -1,10 +1,19 @@
-export const decToHex = (number) => {
-    const hexBase = 16;
-    const maxHexValue = parseInt("ff", hexBase);
+import errors from "../data/messages/errors";
 
-    if (number < maxHexValue) {
-        return number.toString(hexBase);
+const HEX_BASE = 16;
+
+export const decToHex = (number) => {
+    if (number) {
+        return number.toString(HEX_BASE);
     }
 
-    return "";
+    throw new Error(errors.noValueSupplied);
+};
+
+export const hexToDec = (value) => {
+    if (value) {
+        return parseInt(value, HEX_BASE);
+    }
+
+    throw new Error(errors.noValueSupplied);
 };
