@@ -15,11 +15,16 @@ export default function parseHexRgb(color) {
 function hexToRgbObject(hex) {
     const hexWordLength = hex.length / 3;
     const hexValues = stringToNLengthElementArray(hex, hexWordLength);
-    const hexWordRepeatCount = hexWordLength === 1 ? 2 : 1;
 
     return {
-        r: hexToDec(hexValues[0].repeat(hexWordRepeatCount)),
-        g: hexToDec(hexValues[1].repeat(hexWordRepeatCount)),
-        b: hexToDec(hexValues[2].repeat(hexWordRepeatCount)),
+        r: hexWordToDec(hexValues[0]),
+        g: hexWordToDec(hexValues[1]),
+        b: hexWordToDec(hexValues[2]),
     };
+}
+
+function hexWordToDec(word) {
+    const repeatCount = word.length === 1? 2: 1;
+
+    return (hexToDec(word.repeat(repeatCount)));
 }
