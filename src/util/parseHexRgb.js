@@ -15,12 +15,13 @@ export default function parseHexRgb(color) {
 function hexToRgbObject(hex) {
     const hexWordLength = hex.length / 3;
     const hexValues = stringToNLengthElementArray(hex, hexWordLength);
-
-    return {
+    const  hexObject = {
         r: hexWordToDec(hexValues[0]),
         g: hexWordToDec(hexValues[1]),
         b: hexWordToDec(hexValues[2]),
     };
+
+    return hexObject;
 }
 
 function hexWordToDec(word) {
