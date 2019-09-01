@@ -3,14 +3,20 @@ import {hexToDec} from "./hexTools";
 
 export default function parseHexRgb(color) {
     if (color) {
-        const rgbObject = {
-            r: hexToDec(color.substr(0, 2)),
-            g: hexToDec(color.substr(2, 2)),
-            b: hexToDec(color.substr(4, 2)),
-        };
+        const rgbObject = sixCharacterHexToDec(color.replace("#", ""));
 
         return rgbObject;
     }
 
     throw new Error(errors.noValueSupplied);
+}
+
+function sixCharacterHexToDec(hex) {
+    const hexValues = hex.match(/.{1,2}/g);
+
+    return {
+        r: hexToDec(hexValues[0]),
+        g: hexToDec(hexValues[1]),
+        b: hexToDec(hexValues[2]),
+    };
 }

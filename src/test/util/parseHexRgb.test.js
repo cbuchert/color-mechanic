@@ -18,4 +18,8 @@ describe("parseHexRgb", () => {
         expect(decRgb2.g).toEqual(0);
         expect(decRgb2.b).toEqual(0);
     });
+
+    it("strips off leading # symbols.", () => {
+        expect(parseHexRgb("#ff0000").r).toEqual(255);
+    });
 });
