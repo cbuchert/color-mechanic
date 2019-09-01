@@ -19,10 +19,6 @@ describe("parseHexRgb", () => {
         expect(decRgb2.b).toEqual(0);
     });
 
-    it("strips off leading # symbols.", () => {
-        expect(parseHexRgb("#ff0000").r).toEqual(255);
-    });
-
     it("parses three character hex strings.", () => {
         const decRgb1 = parseHexRgb("fff");
         const decRgb2 = parseHexRgb("#000");
@@ -34,5 +30,10 @@ describe("parseHexRgb", () => {
         expect(decRgb2.r).toEqual(0);
         expect(decRgb2.g).toEqual(0);
         expect(decRgb2.b).toEqual(0);
+    });
+
+    it("strips off leading # symbols.", () => {
+        expect(parseHexRgb("#ff0000").r).toEqual(255);
+        expect(parseHexRgb("#f00").r).toEqual(255);
     });
 });
