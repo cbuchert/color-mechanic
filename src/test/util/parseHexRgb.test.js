@@ -1,14 +1,14 @@
-import parseHexRgb from "../../util/parseHexRgb";
+import parseHexRgba from "../../util/parseHexRgba";
 import errors from "../../data/messages/errors";
 
-describe("parseHexRgb", () => {
+describe("parseHexRgba", () => {
     it("throws if passed nothing.", () => {
-        expect(parseHexRgb).toThrow(errors.noValueSupplied);
+        expect(parseHexRgba).toThrow(errors.noValueSupplied);
     });
 
     it("parses a six character hex string.", () => {
-        const decRgb1 = parseHexRgb("ffffff");
-        const decRgb2 = parseHexRgb("000000");
+        const decRgb1 = parseHexRgba("ffffff");
+        const decRgb2 = parseHexRgba("000000");
 
         expect(decRgb1.r).toEqual(255);
         expect(decRgb1.g).toEqual(255);
@@ -20,8 +20,8 @@ describe("parseHexRgb", () => {
     });
 
     it("parses three character hex strings.", () => {
-        const decRgb1 = parseHexRgb("fff");
-        const decRgb2 = parseHexRgb("#000");
+        const decRgb1 = parseHexRgba("fff");
+        const decRgb2 = parseHexRgba("#000");
 
         expect(decRgb1.r).toEqual(255);
         expect(decRgb1.g).toEqual(255);
@@ -33,7 +33,7 @@ describe("parseHexRgb", () => {
     });
 
     it("strips off leading # symbols.", () => {
-        expect(parseHexRgb("#ff0000").r).toEqual(255);
-        expect(parseHexRgb("#f00").r).toEqual(255);
+        expect(parseHexRgba("#ff0000").r).toEqual(255);
+        expect(parseHexRgba("#f00").r).toEqual(255);
     });
 });

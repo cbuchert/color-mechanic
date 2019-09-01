@@ -2,7 +2,7 @@ import errors from "../data/messages/errors";
 import {hexToDec} from "./hexTools";
 import stringToNLengthElementArray from "./stringToNLengthElementArray";
 
-export default function parseHexRgb(color) {
+export default function parseHexRgba(color) {
     if (color) {
         const rgbObject = hexToRgbObject(color.replace("#", ""));
 
