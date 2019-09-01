@@ -4,7 +4,7 @@ import stringToNLengthElementArray from "./stringToNLengthElementArray";
 
 export default function parseHexRgb(color) {
     if (color) {
-        const rgbObject = sixCharacterHexToDec(color.replace("#", ""));
+        const rgbObject = hexToRgbObject(color.replace("#", ""));
 
         return rgbObject;
     }
@@ -12,12 +12,14 @@ export default function parseHexRgb(color) {
     throw new Error(errors.noValueSupplied);
 }
 
-function sixCharacterHexToDec(hex) {
-    const hexValues = stringToNLengthElementArray(hex, 2);
+function hexToRgbObject(hex) {
+    const hexWordLength = hex.length / 3;
+    const hexValues = stringToNLengthElementArray(hex, hexWordLength);
+    const hexWordRepeatCount = hexWordLength === 1 ? 2 : 1;
 
     return {
-        r: hexToDec(hexValues[0]),
-        g: hexToDec(hexValues[1]),
-        b: hexToDec(hexValues[2]),
+        r: hexToDec(hexValues[0].repeat(hexWordRepeatCount)),
+        g: hexToDec(hexValues[1].repeat(hexWordRepeatCount)),
+        b: hexToDec(hexValues[2].repeat(hexWordRepeatCount)),
     };
 }
