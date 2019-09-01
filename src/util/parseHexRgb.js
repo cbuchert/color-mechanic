@@ -1,5 +1,6 @@
 import errors from "../data/messages/errors";
 import {hexToDec} from "./hexTools";
+import stringToNLengthElementArray from "./stringToNLengthElementArray";
 
 export default function parseHexRgb(color) {
     if (color) {
@@ -12,7 +13,7 @@ export default function parseHexRgb(color) {
 }
 
 function sixCharacterHexToDec(hex) {
-    const hexValues = hex.match(/.{1,2}/g);
+    const hexValues = stringToNLengthElementArray(hex, 2);
 
     return {
         r: hexToDec(hexValues[0]),

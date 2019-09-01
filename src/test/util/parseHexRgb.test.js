@@ -22,4 +22,6 @@ describe("parseHexRgb", () => {
     it("strips off leading # symbols.", () => {
         expect(parseHexRgb("#ff0000").r).toEqual(255);
     });
+
+    // it("")
 });
