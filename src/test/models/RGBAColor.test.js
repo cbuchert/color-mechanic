@@ -29,4 +29,10 @@ describe("RGBAColor", () => {
 
         expect(color.getRgbHex()).toEqual("010203");
     });
+
+    it("generates a RGBA hex string.", () => {
+        const color = new RGBAColor("ff00ff00");
+
+        expect(color.getRgbaHex()).toEqual("ff00ff00");
+    });
 });

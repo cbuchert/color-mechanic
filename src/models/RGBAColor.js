@@ -30,4 +30,10 @@ export default class RGBAColor {
 
         return channels.map(channel => decToHex(this[channel])).join("");
     }
+
+    getRgbaHex() {
+        const channels = ["r", "g", "b", "a"];
+
+        return channels.map(channel => decToHex(this[channel])).join("");
+    }
 }
