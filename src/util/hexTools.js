@@ -2,9 +2,9 @@ import errors from "../data/messages/errors";
 
 const HEX_BASE = 16;
 
-export const decToHex = (number) => {
+export const decToHex = (number, digits = 2) => {
     if (number) {
-        return number.toString(HEX_BASE);
+        return number.toString(HEX_BASE).padStart(digits, "0");
     }
 
     throw new Error(errors.noValueSupplied);

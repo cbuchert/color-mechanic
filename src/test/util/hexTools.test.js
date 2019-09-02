@@ -9,6 +9,11 @@ describe("decToHex", () => {
     it("returns a hex value when given a number.", () => {
         expect(decToHex(20)).toEqual("14");
     });
+
+    it("zero pads when output digit count is less than digit character count.", () => {
+        expect(decToHex(1)).toEqual("01");
+        expect(decToHex(1, 4)).toEqual("0001");
+    });
 });
 
 describe("hexToDec", () => {
