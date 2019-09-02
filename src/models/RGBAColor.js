@@ -26,6 +26,8 @@ export default class RGBAColor {
     }
 
     getRgbHex() {
-        return `${decToHex(this.r)}${decToHex(this.g)}${decToHex(this.b)}`;
+        const channels = ["r", "g", "b"];
+
+        return channels.map(channel => decToHex(this[channel])).join("");
     }
 }
