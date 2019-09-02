@@ -35,4 +35,11 @@ describe("RGBAColor", () => {
 
         expect(color.getRgbaHex()).toEqual("ff00ff00");
     });
+
+    it("throws when trying to generate hex for a channel that doesn't exist.", () => {
+        const color = new RGBAColor("008080");
+        const badChannel = "nope";
+
+        expect(() => color.getHexStringFromChannels([badChannel])).toThrow(errors.noSuchChannel(badChannel));
+    });
 });

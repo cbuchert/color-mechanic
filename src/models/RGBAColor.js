@@ -28,12 +28,22 @@ export default class RGBAColor {
     getRgbHex() {
         const channels = ["r", "g", "b"];
 
-        return channels.map(channel => decToHex(this[channel])).join("");
+        return this.getHexStringFromChannels(channels);
     }
 
     getRgbaHex() {
         const channels = ["r", "g", "b", "a"];
 
-        return channels.map(channel => decToHex(this[channel])).join("");
+        return this.getHexStringFromChannels(channels);
+    }
+
+    getHexStringFromChannels(channels) {
+        return channels.map(channel => {
+            if (this.hasOwnProperty(channel)) {
+                return decToHex(this[channel]);
+            }
+
+            throw new Error(errors.noSuchChannel(channel));
+        }).join("");
     }
 }
