@@ -23,4 +23,10 @@ describe("RGBAColor", () => {
         expect(color.g).toEqual(sourceObject.g);
         expect(color.b).toEqual(sourceObject.b);
     });
+
+    it("generates an RGB hex string.", () => {
+        const color = new RGBAColor("010203");
+
+        expect(color.getRgbHex()).toEqual("010203");
+    });
 });
