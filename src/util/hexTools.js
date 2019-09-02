@@ -3,7 +3,7 @@ import errors from "../data/messages/errors";
 const HEX_BASE = 16;
 
 export const decToHex = (number, digits = 2) => {
-    if (number) {
+    if (typeof number === "number") {
         return number.toString(HEX_BASE).padStart(digits, "0");
     }
 
