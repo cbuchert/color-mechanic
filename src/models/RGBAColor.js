@@ -4,7 +4,7 @@ import errors from "../data/messages/errors";
 
 export default class RGBAColor {
     constructor(color) {
-        if (!color) throw new Error(errors.noValueSupplied);
+        if (typeof color === "undefined" || !color.length) throw new Error(errors.noValueSupplied);
 
         this.r = 0;
         this.g = 0;
